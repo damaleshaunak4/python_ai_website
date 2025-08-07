@@ -1,7 +1,7 @@
 import streamlit as st
 from google import genai
 
-client = genai.Client(api_key="AIzaSyArbanj5BQTm9ThYnJaYbakJl8WlPUzmp8")
+client = genai.Client(api_key="YOUR_API")
 
 col1, col2 = st.columns(2)
 
