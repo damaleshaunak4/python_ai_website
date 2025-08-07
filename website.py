@@ -1,11 +1,15 @@
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 
 
 myapi_key = st.secrets['GOOGLE_API_KEY']
 
-client = genai.Client(api_key="myapi_key")
+genai.configure(api_key=myapi_key)
 
+model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+
+
+# UI
 col1, col2 = st.columns(2)
 
 with col1:
@@ -21,13 +25,15 @@ st.title(' ')
 st.title("AI BOT")
 
 user_question = st.text_input("Ask me anything")
-if st.button("Ask",use_container_width=True):
-    prompt = user_question
-    response = client.models.generate_content(
-        model="gemini-2.5-flash", contents = user_question
-    )
+ if user_question.strip():
+        try:
+            response = model.generate_content(user_question)
+            st.write(response.text)
+        except Exception as e:
+            st.error(f"Error from Gemini API: {e}")
+    else:
+        st.warning("Please enter a question.")
 
-    st.write(response.text)
 
 
 st.title("")
