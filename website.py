@@ -25,7 +25,9 @@ st.title(' ')
 st.title("AI BOT")
 
 user_question = st.text_input("Ask me anything")
- if user_question.strip():
+
+if st.button("Ask", use_container_width=True):
+    if user_question.strip():
         try:
             response = model.generate_content(user_question)
             st.write(response.text)
@@ -33,7 +35,6 @@ user_question = st.text_input("Ask me anything")
             st.error(f"Error from Gemini API: {e}")
     else:
         st.warning("Please enter a question.")
-
 
 
 st.title("")
